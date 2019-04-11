@@ -3,9 +3,9 @@
     <div>
       <ul id="example-1">
         
-        <li v-for="message in chat" :key="message.id">
+        <li v-for="message in messages" :key="message.id">
           <!-- <nuxt-link :to="'/room/'+room.id"> -->
-          {{ message.message }}
+          {{ message }}
           <!-- </nuxt-link> -->
         </li>
       </ul>
@@ -17,44 +17,40 @@
 
 <script>
 import firebase from '~/plugins/firebase'
-import Logo from '~/components/Logo.vue'
-let chat = [{message: "dummy", id: 1}];
 
 const db = firebase.firestore();
 
+let messages = [];
 let doc;
-
-
-
-let params;
-async function _params(p) {
-  params = p;
-  console.log(params);
-  // db.collection("rooms").doc(params).collection("chat").onSnapshot(function(snapshot) {
-  //   snapshot.docChanges().forEach(function(change) {
-  //     if(change.type === "added"){
-  //       doc = change.doc.data();
-  //       console.log(doc);
-  //       rooms.push({name:doc.name, id: change.doc.id});
-  //     }
-  //   });
-  // });
-  return;
+function getMessage(params) {
+  db.collection('rooms').doc(params).collection("chat").onSnapshot(function(snapshot){
+    snapshot.docChanges().forEach(function(change){
+      if(change.type === "added"){
+        doc = change.doc.data();
+        messages.push({message: doc.message, id: change.doc.id})
+        console.log(messages);
+        
+      }
+    })
+  })
+  return messages;
 }
+
 export default {
   components: {
-    Logo
-  },
-  data() {
-    return {
-      chat,
-    }
+    
   },
   validate ({ params }) {
     // 数値でなければならない
     // return /^\d+$/.test(params.id)
-    _params(params.id);
+    // _params(params.id);
     return true
+  },
+  data(){
+    
+    return {
+      messages: getMessage(this.$route.params.id)
+    }
   }
 }
 </script>
