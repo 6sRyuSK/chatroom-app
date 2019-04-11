@@ -12,11 +12,13 @@
       <h1>{{$route.params.id}}</h1>
     </div>
     <nuxt-link to="/about">About page</nuxt-link>
+    <messageForm :roomID="$route.params.id" />
   </section>
 </template>
 
 <script>
 import firebase from '~/plugins/firebase'
+import messageForm from '~/components/inputMessage'
 
 const db = firebase.firestore();
 
@@ -38,7 +40,7 @@ function getMessage(params) {
 
 export default {
   components: {
-    
+    messageForm
   },
   validate ({ params }) {
     // 数値でなければならない
