@@ -47,7 +47,7 @@ export default {
     return true
   },
   data(){
-    
+    messages = [];
     return {
       messages: getMessage(this.$route.params.id)
     }
