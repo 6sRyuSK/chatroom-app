@@ -1,13 +1,20 @@
 <template>
   <div>
-    <form action=""></form>
-    <input 
+    <!-- <input 
       class="input" 
       type="text" 
       placeholder="Text input" 
       v-model="inputComment" 
       @keydown.enter="sendMessage"
-    />
+    /> -->
+    <v-flex xs12 sm6 md3>
+      <v-text-field
+        placeholder="Text input"
+        box
+        v-model="inputComment" 
+        @keydown.enter="sendMessage"
+      ></v-text-field>
+    </v-flex>
     <!-- <button class="button is-link" @click="sendMessage">Submit</button> -->
   </div>
 </template>

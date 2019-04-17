@@ -1,17 +1,32 @@
 <template>
   <section class="container">
     <div>
-      <ul id="example-1">
-        
-        <li v-for="message in messages" :key="message.id">
-          <!-- <nuxt-link :to="'/room/'+room.id"> -->
-          {{ message }}
-          <!-- </nuxt-link> -->
-        </li>
-      </ul>
-      <h1>{{$route.params.id}}</h1>
+      <v-list 
+        three-line 
+        style="max-height: 80vh"
+        class="scroll-y"
+        >
+        <template v-for="message in messages">
+          <v-list-tile
+              :key="message.id"
+          >
+            <!-- <v-list-tile-avatar>
+              <img :src="message.avatar">
+            </v-list-tile-avatar> -->
+
+            <v-list-tile-content>
+              <v-list-tile-sub-title class="text--primary subheading">{{message.message}}</v-list-tile-sub-title>
+              <!-- <v-list-tile-sub-title>
+                {{comment.createdAt.toDate().toLocaleString()}}
+              </v-list-tile-sub-title> -->
+            </v-list-tile-content>
+
+          </v-list-tile>
+          <v-divider :key="message.id"></v-divider>
+        </template>
+      </v-list>
     </div>
-    <nuxt-link to="/about">About page</nuxt-link>
+    <!-- <nuxt-link to="/about">About page</nuxt-link> -->
     <messageForm :roomID="$route.params.id" />
   </section>
 </template>
