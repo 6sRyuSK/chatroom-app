@@ -1,14 +1,22 @@
 <template>
   <section class="container">
     <div>
-      <ul id="example-1">
-        
-        <li v-for="room in rooms" :key="room.id">
-          <nuxt-link :to="'/room/'+room.id">
-          {{ room.name }}
-          </nuxt-link>
-        </li>
-      </ul>
+      <v-list 
+        three-line
+        >
+        <template v-for="room in rooms">
+          <v-list-tile
+            :key="room.id"
+            > 
+            <v-list-tile-content>
+              <nuxt-link :to="'/room/'+room.id">
+              {{ room.name }}
+              </nuxt-link>
+            </v-list-tile-content>
+          </v-list-tile>
+          <v-divider :key="room.id"></v-divider>
+        </template>
+      </v-list>
     </div>
     <nuxt-link to="/about">About page</nuxt-link>
   </section>
