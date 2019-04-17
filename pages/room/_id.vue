@@ -16,9 +16,9 @@
 
             <v-list-tile-content>
               <v-list-tile-sub-title class="text--primary subheading">{{message.message}}</v-list-tile-sub-title>
-              <!-- <v-list-tile-sub-title>
-                {{comment.createdAt.toDate().toLocaleString()}}
-              </v-list-tile-sub-title> -->
+              <v-list-tile-sub-title>
+                {{message.createdAt.toLocaleString()}}
+              </v-list-tile-sub-title>
             </v-list-tile-content>
 
           </v-list-tile>
@@ -39,13 +39,14 @@ const db = firebase.firestore();
 
 let messages = [];
 let doc;
+let createdAt;
 function getMessage(params) {
-  db.collection('rooms').doc(params).collection("chat").onSnapshot(function(snapshot){
+  db.collection('rooms').doc(params).collection("chat").orderBy("createdAt", "asc").onSnapshot(function(snapshot){
     snapshot.docChanges().forEach(function(change){
       if(change.type === "added"){
         doc = change.doc.data();
-        messages.push({message: doc.message, id: change.doc.id})
-        console.log(messages);
+        createdAt = new Date(doc.createdAt.seconds * 1000);
+        messages.push({message: doc.message, id: change.doc.id, createdAt})
         
       }
     })

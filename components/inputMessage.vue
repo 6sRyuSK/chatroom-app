@@ -37,7 +37,7 @@ const db = firebase.firestore();
         // コメントをFirestoreへ登録
         db.collection('rooms').doc(this.roomID).collection("chat").add({
           message: this.inputComment,
-          // createdAt: now
+          createdAt: now
         })
         console.log(this.roomID);
         console.log(this.inputComment);
