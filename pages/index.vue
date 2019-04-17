@@ -22,23 +22,24 @@ const db = firebase.firestore();
 
 let doc;
 let rooms = [];
-db.collection("rooms").onSnapshot(function(snapshot) {
-  snapshot.docChanges().forEach(function(change) {
-    if(change.type === "added"){
-      doc = change.doc.data();
-      console.log(change.doc);
-      rooms.push({name:doc.name, id: change.doc.id});
-    }
-  });
-});
+
+function getRooms() {
+  db.collection('rooms').onSnapshot(function(snapshot){
+    snapshot.docChanges().forEach(function(change){
+      if(change.type === "added"){
+        doc = change.doc.data();
+        rooms.push({name:doc.name, id: change.doc.id});
+      }
+    })
+  })
+  return rooms;
+}
 
 export default {
-  components: {
-    Logo
-  },
   data() {
+    rooms = []
     return {
-      rooms
+      rooms: getRooms()
     }
   }
 }
