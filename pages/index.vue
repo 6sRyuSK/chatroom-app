@@ -1,6 +1,7 @@
 <template>
   <section class="container">
     <div>
+      <addRoomForm />
       <v-list 
         three-line
         >
@@ -24,6 +25,7 @@
 
 <script>
 import firebase from '~/plugins/firebase'
+import addRoomForm from '~/components/addRoom'
 
 const db = firebase.firestore();
 
@@ -49,6 +51,9 @@ export default {
     return {
       rooms: getRooms()
     }
+  },
+  components: {
+    addRoomForm,
   }
 }
 </script>
