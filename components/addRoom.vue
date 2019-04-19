@@ -1,17 +1,40 @@
 <template>
-  <div>
-    <v-layout row wrap>
-      <v-flex xs6>
-        <v-text-field
-          placeholder="ルーム名を入力"
-          box
-          v-model="inputRoomName" 
-        ></v-text-field>
-      </v-flex>
-      <v-flex xs6>
-        <v-btn color="blue" @click="addRoom">追加</v-btn>
-      </v-flex>
-    </v-layout>
+  <div class="text-xs-center">
+    <v-dialog
+      v-model="isClick_addRoomDialog"
+      width="500"
+    >
+        
+      <v-card>
+        <v-card-text>
+          <v-container grid-list-md>
+            <v-layout wrap row>
+              
+              <v-flex xs9>
+                <v-text-field
+                  placeholder="ルーム名を入力"
+                  v-model="inputRoomName"
+                ></v-text-field>
+                
+              </v-flex>
+              <v-flex xs3 >
+                <v-btn
+                style="margin:16px"
+                  color="blue lighten-2"
+                  center
+                  @click="() => {addRoom(); onClick_addRoomDialog();}"
+                >
+                  追加
+                </v-btn>
+              </v-flex>
+
+
+
+            </v-layout>
+          </v-container>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -40,9 +63,12 @@ const db = firebase.firestore();
       clear() {
         this.inputRoomName = ""
       },
+      onClick_addRoomDialog() {
+        this.$store.dispatch('onClick_addRoomDialog')
+      }
     },
-    props: {
-      roomID: String,
+    computed: {
+      isClick_addRoomDialog() { return this.$store.getters.isClick_addRoomDialog}
     }
   }
 </script>

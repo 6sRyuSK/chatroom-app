@@ -1,6 +1,13 @@
 <template>
   <section class="container">
     <div>
+      
+      <v-toolbar color="indigo" dark fixed app>
+        <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+        <v-toolbar-title>Application</v-toolbar-title>
+        
+        <v-btn color="blue" fab @click="onClick_addRoomDialog"><v-icon dark>add</v-icon></v-btn>
+      </v-toolbar>
       <addRoomForm />
       <v-list 
         three-line
@@ -49,11 +56,17 @@ export default {
   data() {
     rooms = []
     return {
-      rooms: getRooms()
+      rooms: getRooms(),
+      dialog: false,
     }
   },
   components: {
     addRoomForm,
+  },
+  methods: {
+    onClick_addRoomDialog() {
+      this.$store.dispatch('onClick_addRoomDialog')
+    }
   }
 }
 </script>
