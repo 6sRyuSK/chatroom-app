@@ -12,7 +12,7 @@
           <v-list-tile-content>
             <v-list-tile-sub-title class="text--primary subheading">{{message.message}}</v-list-tile-sub-title>
             <v-list-tile-sub-title>
-              {{message.createdAt.toLocaleString()}}
+              {{message.createdAt.toLocaleDateString("ja-JP-u-ca-japanese", {era: 'long',year:'numeric',month:'long',day:'numeric'})}}
             </v-list-tile-sub-title>
           </v-list-tile-content>
         </v-list-tile>
